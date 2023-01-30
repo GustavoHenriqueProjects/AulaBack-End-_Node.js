@@ -94,31 +94,40 @@ entradaDados.question('Digite o nome do aluno: \n', function (nome) {
                         * OU     ||     pipe
                         * E      &&     And
                         * Negação ! Not
+                        * 
+                        * Ordem de execução dos operadores lógicos
+                        * 1 =         ( )
+                        * 2 = Negação !
+                        * 3 = E       &&
+                        * 4 = OU      || 
                      */
 
                     //Estrutura condicional
                     //validação para tratar entradas vazias
                     if (primeiraNota == '' || segundaNota == '' || terceiraNota == '' || quartaNota == '') {
                         console.log('Erro: É nessesario digitar algum valor nas entradas')
-                    } else if(isNaN(primeiraNota) || isNaN(segundaNota || isNaN(terceiraNota) || isNaN(quartaNota))){
+                        //Validação para entrada de dados não númerica
+                    } else if (isNaN(primeiraNota) || isNaN(segundaNota || isNaN(terceiraNota) || isNaN(quartaNota))) {
 
                         console.log('Erro: é nessesario que todos os dados sejam números')
 
-                    }else if (primeiraNota >10 || primeiraNota<0 || segundaNota>10 || segundaNota<0 || terceiraNota>10 || terceiraNota<0 || quartaNota>10 || quartaNota<0){
-                          
+                        //Validadação entre notas de 0 a 10
+                    } else if (primeiraNota > 10 || primeiraNota < 0 || segundaNota > 10 || segundaNota < 0 || terceiraNota > 10 || terceiraNota < 0 || quartaNota > 10 || quartaNota < 0) {
+
                         console.log('Digite uma valor entra 0 a 10')
                     }
                     else {
 
                         media = (Number(primeiraNota) + Number(segundaNota) + Number(terceiraNota) + Number(quartaNota)) / 4
-                        if(media >= 7){
+                        if (media >= 7) {
                             console.log('Aluno Aprovado')
                             console.log(media)
-                        }else{
-                            console.log('Aluno Reprovado')
+                        } else {
+                            //toFixed é para fizar quantos elementos eu quero depois do decimal
+                            console.log('Aluno Reprovado : '+media.toFixed(1))
                         }
-                       
-                            
+
+
                     }
                 })
             })
