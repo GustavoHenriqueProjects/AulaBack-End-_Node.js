@@ -44,31 +44,30 @@ entradaDados.question('Digite o primeiro número: \n', function (valor1) {
                 if (operacaoEscolha == "Soma") {
 
                     let soma = Number(input1) + Number(input2)
-                    console.log("A soma entre " + input1 + " e " + input2 + " é " + soma)
+                    console.log("A soma entre " + input1 + " + " + input2 + " é = " + soma)
 
                 } else if (operacaoEscolha == "Subtração") {
 
                     let subtrair = Number(input1) - Number(input2)
-                    console.log("A subtração entre " + input1 + " e " + input2 + " é " + subtrair)
+                    console.log("A subtração entre " + input1 + " - " + input2 + " é = " + subtrair)
 
                 } else if (operacaoEscolha == "Multiplicação") {
 
                     let multiplicacao = Number(input1) * Number(input2)
-                    console.log("A multiplicação entre " + input1 + " e " + input2 + " é " + multiplicacao)
+                    console.log("A multiplicação entre " + input1 + " X " + input2 + " é = " + multiplicacao)
 
-                } else if(operacaoEscolha == "Divisão"){
+                } else if (operacaoEscolha == "Divisão") {
 
                     let divisao = Number(input1) / Number(input2)
-                    console.log("A divisao entre " + input1 + " e " + input2 + " é " + divisao)
+                    console.log("A divisao entre " + input1 + " / " + input2 + " é = " + divisao)
 
-                }else{
+                }else {
 
                     console.log("Atenção. Escolha Soma , Subtração , Divisão ou Multiplicação")
 
                 }
 
             })
-
         }
     })
 })
