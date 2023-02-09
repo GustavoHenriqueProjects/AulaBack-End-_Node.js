@@ -29,11 +29,11 @@ var entradaDeDados = readline.createInterface({
 //Entrada de dados valor1
 
 entradaDeDados.question('valor1 : \n', function (numero1) {
-    let valor1 = numero1.replace(',','.')
+    let valor1 = numero1.replace(',', '.')
 
     //Entrada de dados valor2
     entradaDeDados.question('Valor2: \n', function (numero2) {
-        let valor2 = numero2.replace(',','.')
+        let valor2 = numero2.replace(',', '.')
 
         //Entrada de dados tipo de calculo
         entradaDeDados.question('Escolha uma operação: [SOMAR | SUBTRAIR | MULTIPLICAR | DIVIDIR ] \n', function (tipoCalculo) {
@@ -53,10 +53,22 @@ entradaDeDados.question('valor1 : \n', function (numero1) {
                 entradaDeDados.close()
 
             } else {
-
+                //Recebe da função o calculo das operações(função que nos criamos)
                 resultado = matematica.calcular(valor1, valor2, operacao)
-                console.log(resultado)
-                entradaDeDados.close()
+
+                //Valida se o retordo da função é válido, se for exibe o programa
+                // senão encerra o programa
+
+                if (resultado === false) {
+
+                    entradaDeDados.close()
+                    
+                } else {
+
+                    console.log(resultado)
+                    entradaDeDados.close()
+
+                }
 
             }
 
