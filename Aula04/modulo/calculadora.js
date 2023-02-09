@@ -134,19 +134,21 @@ const calcular = function(numero1, numero2, tipoCalculo){
         
     }
 
+        //Validação para tratar a variavel resultado quando nenhum calculo é realizado
+        if (resultado != undefined) {
+            return Number(resultado.toFixed(2))
+        } else {
+            return status
+        }
+    }
+
     //Forma 03(Arrow Funcion) Exemplo de funções privadas
     const SOMAR = (valor1,valor2) => valor1 + valor2
     const SUBTRAIR = (valor1,valor2) => valor1 - valor2
     const MULTIPLICAR = (valor1,valor2) => valor1 * valor2
     const DIVIDIR = (valor1,valor2) => valor1 / valor2
 
-    //Validação para tratar a variavel resultado quando nenhum calculo é realizado
-    if (resultado != undefined) {
-        return Number(resultado.toFixed(2))
-    } else {
-        return status
-    }
-}
+
 
 //Exporta uma função para ser utilizada em outro arquivo
 module.exports = {
