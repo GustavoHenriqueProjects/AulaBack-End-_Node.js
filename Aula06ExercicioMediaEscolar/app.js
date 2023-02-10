@@ -17,18 +17,18 @@ var entradaDeDados = readline.createInterface({
     output: process.stdout
 })
 
-entradaDeDados.question('Nome do aluno: \n', function ($nomeAluno) {
+entradaDeDados.question('Nome do aluno(a): \n', function ($nomeAluno) {
     let nomeAluno = $nomeAluno
 
-    entradaDeDados.question('Sexo do aluno(a): \n', function ($sexoAluno) {
-        let sexoAluno = $sexoAluno
+    entradaDeDados.question('Sexo do aluno(a): (M) ou (F)\n', function ($sexoAluno) {
+        let sexoAluno = $sexoAluno.toUpperCase()
 
         entradaDeDados.question('Nome do professor(a): \n', function ($nomeProfessor) {
             let nomeProfessor = $nomeProfessor
 
 
-            entradaDeDados.question('Sexo do professor(a): \n', function ($sexoProfessor) {
-                let sexoProfessor = $sexoProfessor
+            entradaDeDados.question('Sexo do professor(a): (M) ou (F): \n', function ($sexoProfessor) {
+                let sexoProfessor = $sexoProfessor.toUpperCase()
 
                 entradaDeDados.question('Nome do curso: \n', function ($nomeCurso) {
                     let nomeCurso = $nomeCurso
@@ -58,32 +58,78 @@ entradaDeDados.question('Nome do aluno: \n', function ($nomeAluno) {
 
                                             //Verifica se a numero nos textos
                                         } else if (!isNaN(nomeAluno) || !isNaN(sexoAluno) ||
-                                                    !isNaN(nomeProfessor) || !isNaN(sexoProfessor))
-                                         {
+                                            !isNaN(nomeProfessor) || !isNaN(sexoProfessor)) {
 
                                             console.log('Não digite número nos campos de texto')
                                             entradaDeDados.close()
 
-                                        }else if (isNaN(primeiraNota) || isNaN(segundaNota) || isNaN(terceiraNota) || isNaN(quartaNota)) {
+                                        } else if (isNaN(primeiraNota) || isNaN(segundaNota) || isNaN(terceiraNota) || isNaN(quartaNota)) {
 
                                             console.log('Atenção: Preencha as notas com número.')
-                                        }else{
+                                            entradaDeDados.close()
+
+                                        } else if ((sexoAluno !== 'M' && sexoAluno !== "F") || (sexoProfessor !== 'M' && sexoProfessor !== 'F')) {
+
+                                            console.log(sexoAluno+","+sexoProfessor)
+                                            console.log('Atenção: Defina o sexo como masculino(M) ou feminino(F)')
+                                            entradaDeDados.close()
+
+                                        } else {
 
                                             let validacao
+                                            let avalicaoRecuperacao
+                                            let relatorioAluno
+                                            let relatorioAlunoRecuperacao
 
-                                            validacao = avaliacaoMedias.validacaoNotas(primeiraNota,segundaNota,terceiraNota,quartaNota)
-                                            console.log('AAA'+validacao)
+                                            validacao = avaliacaoMedias.validacaoNotas(primeiraNota, segundaNota, terceiraNota, quartaNota)
 
-                                            if(validacao === false){
+                                            if(validacao == 'NotasNoFormatoErrado'){
+                                                entradaDeDados.close()
+                                            }
+                                            else if (validacao == true) {
+
+                                                relatorioAluno = avaliacaoMedias.relatorioAluno(nomeAluno, sexoAluno, nomeProfessor, sexoProfessor,
+                                                    nomeDisciplina, nomeCurso, primeiraNota, segundaNota, terceiraNota, quartaNota)
+
+                                                console.log(relatorioAluno)
+                                                entradaDeDados.close()
+
+                                            } else if ( validacao == 'Reprovado') {
+                                                
+                                                let relatorioAlunoReprovado = avaliacaoMedias.relatorioAlunoReprovado(nomeAluno, sexoAluno, nomeProfessor, sexoProfessor,
+                                                 nomeDisciplina, nomeCurso, primeiraNota, segundaNota, terceiraNota, quartaNota)
+
+                                                 console.log(relatorioAlunoReprovado)
+                                                 entradaDeDados.close()
+
+                                            } else if (validacao == false) {
 
                                                 entradaDeDados.question('Digite a nota do exame : \n', function ($notaExame) {
                                                     let notaExame = $notaExame
 
-                                                    console.log('A nota do exame é')
+                                                    if (notaExame == '' || isNaN(notaExame)) {
+
+                                                        console.log('Atenção: Digite a nota do exame Final.')
+                                                        entradaDeDados.close()
+
+                                                    } else {
+
+
+                                                        avalicaoRecuperacao = avaliacaoMedias.avalicaoExameRecuperacao(notaExame)
+
+                                                        relatorioAlunoRecuperacao = avaliacaoMedias.relatorioAlunoRecuperacao(nomeAluno, sexoAluno, nomeProfessor, sexoProfessor,
+                                                            nomeDisciplina, nomeCurso, primeiraNota, segundaNota, terceiraNota, quartaNota)
+
+                                                        console.log(relatorioAlunoRecuperacao)
+
+                                                        entradaDeDados.close()
+
+                                                    }
 
                                                 })
 
                                             }
+
                                         }
 
                                     })
