@@ -53,19 +53,18 @@ entradaDeDados.question('valor1 : \n', function (numero1) {
                 entradaDeDados.close()
 
             } else {
+
                 //Recebe da função o calculo das operações(função que nos criamos)
                 resultado = matematica.calcular(valor1, valor2, operacao)
-
+                
                 //Valida se o retordo da função é válido, se for exibe o programa
                 // senão encerra o programa
 
                 if (resultado === false) {
-
                     entradaDeDados.close()
                     
                 } else {
-
-                    console.log(resultado)
+                //console.log(resultado)
                     entradaDeDados.close()
 
                 }
