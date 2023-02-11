@@ -94,7 +94,7 @@ entradaDeDados.question('Nome do aluno(a): \n', function ($nomeAluno) {
                                                 console.log(relatorioAluno)
                                                 entradaDeDados.close()
 
-                                            } else if ( validacao == 'Reprovado') {
+                                            } else if ( validacao == 'Reprovado(a)') {
                                                 
                                                 let relatorioAlunoReprovado = avaliacaoMedias.relatorioAlunoReprovado(nomeAluno, sexoAluno, nomeProfessor, sexoProfessor,
                                                  nomeDisciplina, nomeCurso, primeiraNota, segundaNota, terceiraNota, quartaNota)
@@ -118,7 +118,7 @@ entradaDeDados.question('Nome do aluno(a): \n', function ($nomeAluno) {
                                                         avalicaoRecuperacao = avaliacaoMedias.avalicaoExameRecuperacao(notaExame)
 
                                                         relatorioAlunoRecuperacao = avaliacaoMedias.relatorioAlunoRecuperacao(nomeAluno, sexoAluno, nomeProfessor, sexoProfessor,
-                                                            nomeDisciplina, nomeCurso, primeiraNota, segundaNota, terceiraNota, quartaNota)
+                                                            nomeDisciplina, nomeCurso, primeiraNota, segundaNota, terceiraNota, quartaNota,notaExame)
 
                                                         console.log(relatorioAlunoRecuperacao)
 

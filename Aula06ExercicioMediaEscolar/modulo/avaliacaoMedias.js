@@ -39,11 +39,11 @@ const validacaoNotas = function ($nota1, $nota2, $nota3, $nota4) {
 
         if (resultadoNotas >= 70) {
 
-            resultadoAprovado = 'Aprovado'
+            resultadoAprovado = 'Aprovado(a)'
 
         } else if (resultadoNotas < 50) {
 
-            resultadoAprovado = 'Reprovado'
+            resultadoAprovado = 'Reprovado(a)'
 
         } else if (resultadoNotas >= 50 || resultadoNotas <= 69) {
 
@@ -52,7 +52,7 @@ const validacaoNotas = function ($nota1, $nota2, $nota3, $nota4) {
         }
 
         //Valida se a nota digitada é maior que 100 ou menor que 0
-         if (resultadoAprovado == 'Reprovado') {
+         if (resultadoAprovado == 'Reprovado(a)') {
             return resultadoAprovado
         } else if (status == false) {
             return status
@@ -72,9 +72,9 @@ const avalicaoExameRecuperacao = function ($notaExame) {
     mediaFinalExame = (notaExame + resultadoNotas) / 2
 
     if (notaExame > 60) {
-        resultadoAprovado = 'Aprovado'
+        resultadoAprovado = 'Aprovado(a)'
     } else {
-        resultadoAprovado = 'Reprovado'
+        resultadoAprovado = 'Reprovado(a)'
     }
 
 }
@@ -180,7 +180,7 @@ const relatorioAlunoReprovado = function ($nomeAluno, $sexoAluno, $nomeProfessor
 //Função que define o relatorio para o aluno em recuperação
 const relatorioAlunoRecuperacao = function ($nomeAluno, $sexoAluno, $nomeProfessor,
     $sexoProfessor, $disciplina, $curso, $primeiraNota,
-    $segundaNota, $terceiraNota, $quartaNota) {
+    $segundaNota, $terceiraNota, $quartaNota,$notaDoExame) {
 
     let nomeAluno = $nomeAluno
     let sexoAluno = $sexoAluno
@@ -192,7 +192,7 @@ const relatorioAlunoRecuperacao = function ($nomeAluno, $sexoAluno, $nomeProfess
     let segundaNota = $segundaNota
     let terceiraNota = $terceiraNota
     let quartaNota = $quartaNota
-
+    let notaDoExame = $notaDoExame
     let generoAluno
     let generoProfessor
 
@@ -217,8 +217,8 @@ const relatorioAlunoRecuperacao = function ($nomeAluno, $sexoAluno, $nomeProfess
     //console.log(`${generoAluno} ${nomeAluno} foi ${resultadoAprovado} na disciplina ${disciplina} .`)
     let printRelatorio = `\n    ${generoAluno} ${nomeAluno} foi ${resultadoAprovado} na disciplina ${disciplina} \n
     Curso: ${curso} \n
-    ${generoProfessor} ${nomeProfessor} : ${sexoProfessor}\n
-    Notas do Aluno(a) ${primeiraNota}, ${segundaNota}, ${terceiraNota}, ${quartaNota}, Nota do exame: ${resultadoNotas} \n
+    ${generoProfessor} : ${nomeProfessor}\n
+    Notas do Aluno(a) ${primeiraNota}, ${segundaNota}, ${terceiraNota}, ${quartaNota}, Nota do exame: ${notaDoExame} \n
     Média final do Exame: ${mediaFinalExame} \n`
 
     return printRelatorio
