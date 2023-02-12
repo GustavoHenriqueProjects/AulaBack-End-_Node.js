@@ -8,8 +8,8 @@
 //Retorna a validação da tabuada para verificar se ela esta entre 2 a 100 e se não são iguais
 const validacaoTabuada = function($tabuadaInicial, $tabuadaFinal){
 
-    let tabuadaInicial = $tabuadaInicial
-    let tabuadaFinal = $tabuadaFinal
+    let tabuadaInicial = Number($tabuadaInicial)
+    let tabuadaFinal = Number($tabuadaFinal)
     let statusValidacao = true
 
     if((tabuadaInicial<2 || tabuadaInicial>100) || ( tabuadaFinal <2 || tabuadaFinal> 100)){
@@ -28,8 +28,8 @@ const validacaoTabuada = function($tabuadaInicial, $tabuadaFinal){
 //Verifica o multiplicando max e min está entre 1 a 50
 const maxMinTabuada = function($tabuadaInicialMultiplicador, $tabuadaFinalMultiplicador){
 
-    let tabuadaInicialMultiplicador = $tabuadaInicialMultiplicador
-    let tabuadaFinalMultiplicador = $tabuadaFinalMultiplicador
+    let tabuadaInicialMultiplicador = Number($tabuadaInicialMultiplicador)
+    let tabuadaFinalMultiplicador = Number($tabuadaFinalMultiplicador)
     let statusMaxMin = true
 
     if((tabuadaInicialMultiplicador <1 || tabuadaInicialMultiplicador> 50) || (tabuadaFinalMultiplicador<1 || tabuadaFinalMultiplicador>50)){
@@ -45,10 +45,10 @@ const maxMinTabuada = function($tabuadaInicialMultiplicador, $tabuadaFinalMultip
 
 //Função responsavel por realizar o calculo da tabuada
 const calculoTabuada = function($tabuadaInicial,$tabuadaFinal,$tabuadaInicialMultiplicador, $tabuadaFinalMultiplicador){
-    let tabuadaInicialMultiplicador = $tabuadaInicialMultiplicador
-    let tabuadaFinalMultiplicador = $tabuadaFinalMultiplicador
-    let tabuadaInicial = $tabuadaInicial
-    let tabuadaFinal = $tabuadaFinal
+    let tabuadaInicialMultiplicador = Number($tabuadaInicialMultiplicador)
+    let tabuadaFinalMultiplicador = Number($tabuadaFinalMultiplicador)
+    let tabuadaInicial = Number($tabuadaInicial)
+    let tabuadaFinal = Number($tabuadaFinal)
 
     for(let multiplicando = tabuadaInicialMultiplicador; multiplicando<= tabuadaFinalMultiplicador; multiplicando++){
 

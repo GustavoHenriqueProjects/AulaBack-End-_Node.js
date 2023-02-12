@@ -17,7 +17,7 @@ var entradaDeDados = readline.createInterface({
     output: process.stdout
 })
 
-console.log("Bem vindo ão calculo rápido da tabuada 3.0 \n ")
+console.log("Bem vindo ao calculo rápido da tabuada 3.0 \n ")
 console.log("Atenção: A entrada da tabuada deverá estar entre 2 e 100. \n ")
 console.log("Nenhuma entrada deverá ficar sem preencimento. \n ")
 console.log("O valor até onde será calculada a tabuada deverá ficar entre 1 e 50. \n ")

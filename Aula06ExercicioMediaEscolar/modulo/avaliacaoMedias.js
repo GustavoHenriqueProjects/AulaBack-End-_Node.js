@@ -69,7 +69,7 @@ const validacaoNotas = function ($nota1, $nota2, $nota3, $nota4) {
 const avalicaoExameRecuperacao = function ($notaExame) {
 
     let notaExame = Number($notaExame)
-    mediaFinalExame = (notaExame + resultadoNotas) / 2
+    mediaFinalExame = (notaExame + Number(resultadoNotas)) / 2
 
     if (notaExame > 60) {
         resultadoAprovado = 'Aprovado(a)'
