@@ -1,11 +1,11 @@
 /***************************************************************************************
- *Objetivo: Realizar o calculo de uma tabuada enndo duas entradas a tabuada e o contador
+ *Objetivo: Realizar o calculo de uma tabuada tendo duas entradas a tabuada e o contador
  *Data: 09/02/2023
  *Autor: Gustavo Henrique
  *Versão 1.0
 ***************************************************************************************/
 
-//Retorna o resultado de uma tabuada
+//Retorna o resultado da tabuada
 const calcularTabuada = function (multiplicando, maximoMultiplicador) {
 
     let tabuada = Number(multiplicando)
