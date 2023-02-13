@@ -1,8 +1,8 @@
 /*************************************************************************************************************
  * Objetivo: Realizar o back-end para  realizar a separação de números impares e pares, e validação de dados .
- * Data: 12/02/2023
+ * Data: 13/02/2023
  *  Autor: Gustavo Henrique 
- * Versão: 1.0 
+ * Versão: 2.0 
  **********************************************************************************************************/
 
 /**
@@ -76,8 +76,56 @@ const separacaoParImpar = function($numInicial,$numFinal){
     console.log('A quantida de números impares é: '+numImpar)
 }
 
+//Função que separa apenas numeros pares
+const separacaoNumPares = function($numInicial, $numFinal){
+
+    let numInicial = Number($numInicial)
+    let numFinal = Number($numFinal)
+
+    let numPar = 0
+
+    console.log('Lista de números pares: ')
+    for(let numParesOuImpares = numInicial; numParesOuImpares<= numFinal; numParesOuImpares++){
+
+        if(numParesOuImpares%2 == 0){
+
+            console.log(numParesOuImpares)
+            numPar+=1
+
+        }
+        
+    }
+    console.log('A quantida de números pares é: '+numPar)
+    console.log(' ')
+
+}
+
+//Função que separa apenas números impares
+const separacaoNumImpares = function($numInicial,$numFinal){
+    let numInicial = Number($numInicial)
+    let numFinal = Number($numFinal)
+
+    let numImpar = 0
+
+    console.log('Lista de números Impares: ')
+    for(let numParesOuImpares = numInicial; numParesOuImpares<= numFinal; numParesOuImpares++){
+
+        if(numParesOuImpares%2 != 0){
+
+            console.log(numParesOuImpares)
+            numImpar+=1
+
+        }
+        
+    }
+    console.log('A quantida de números impares é: '+numImpar)
+
+}
+
 //Exportando funções
 module.exports = {
     validacaoNumInicialFinal,
-    separacaoParImpar
+    separacaoParImpar,
+    separacaoNumPares, 
+    separacaoNumImpares
 }

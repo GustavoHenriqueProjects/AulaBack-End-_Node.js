@@ -1,11 +1,11 @@
 /********************************************************************************************************************************
  * Objetivo: Realizar o desenvolvimento de um sistema que a partir de um número inicial e final realize a separação de par e impar
- * Data: 12/02/2023
- * Versão: 1.0
+ * Data: 13/02/2023
+ * Versão: 2.0
  ********************************************************************************************************************************/
 
 //Importando a classe calculo
-var calculosValidacao = require('./modulo/calculo')
+var calculosValidacao = require('./modulo/validacaoCalculo')
 
 //Importando a biblioteca para entradas de dados 
 var readline = require('readline')
@@ -42,13 +42,38 @@ entradaDeDados.question('Digite o número inicial: \n', function($numInicial){
                 entradaDeDados.close()
             }else{
 
-                calculo = calculosValidacao.separacaoParImpar(numInicial,numFinal)
+                let separacaoParImpar
 
-                entradaDeDados.close()
+                entradaDeDados.question('Você deseja calcular somente números Pares(P), Impares(I) ou os Dois(D): ', function($numPID){
+
+                    let numPID = $numPID.toUpperCase()
+
+                    if(numPID == ''){
+                        console.log('Atenção: Não será aceito campos em branco.')
+                        entradaDeDados.close()
+
+                    }else if(numPID == 'P' || numPID == 'I' || numPID == 'D'){
+                        
+                        if(numPID == 'P'){
+
+                            separacaoParImpar = calculosValidacao.separacaoNumPares(numInicial,numFinal)
+                            entradaDeDados.close()
+                        }else if(numPID == 'I'){
+
+                            separacaoParImpar = calculosValidacao.separacaoNumImpares(numInicial,numFinal)
+                            entradaDeDados.close()
+                        }else if(numPID == 'D'){
+                            separacaoParImpar = calculosValidacao.separacaoParImpar(numInicial,numFinal)
+                            entradaDeDados.close()
+                        }
+
+                    }else{
+                        console.log('Atenção: Escolha par(P), impar(I) ou os dois(D).')
+                        entradaDeDados.close()
+                    }
+                })
 
             }
         }
     })
 })
-
-
