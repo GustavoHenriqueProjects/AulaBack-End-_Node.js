@@ -24,6 +24,26 @@ const listaProdutos = ['Teclado', 'Mouse', 'Monitor',
     'Computador', 'Fone', 'Impressora',
     'Scanner', 'WebCam']
 
+//Manipulando um arquivo JSON
+const listaProdutosJSON = {}
+
+/*********************************************************************************
+ * Exemplo de um JSON com estrutura de array: 
+ * 
+ *      produtos = {
+ * 
+ *                   [
+ *                       {nome: "Teclado",  cor:"Preto", quantidade: 50},
+ *                       {nome: "Monitor",  cor:"Branco", quantidade: 30},
+ *                       {nome: "Mouse",  cor:"Preto", quantidade: 200}
+ *            
+ *                   ]
+ * 
+ *          } 
+ * 
+ * 
+ ********************************************************************************/
+
 
 const manipulandoElementos = function () {
     //Tipos de console
@@ -113,32 +133,121 @@ const filtrandoElemetos = function () {
 
 }
 
-const removerElemento = function(array,nomeItem) {
+
+const removerElemento = function (array, nomeItem) {
     //Cria uma cópia da Array
-    let novaLista = array.slice() 
+    let novaLista = array.slice()
 
     let nome = nomeItem
 
     //Remove o item selecionado da nova lista
     let indice = novaLista.indexOf(nome)
-    let status 
+    let status
 
     //  splice - permite remover elementos do Array pelo indice
     //  Não esquecer de passar a quantidade de itens a ser removida
-    if(indice >= 0){
-        novaLista.splice(indice,1) //Remover apenas aquele indice
+    if (indice >= 0) {
+        novaLista.splice(indice, 1) //Remover apenas aquele indice
         status = true
-    }else{
+    } else {
         status = false
     }
 
-    if(status){
+    if (status) {
         return novaLista
-    }else{
+    } else {
         return status
     }
 
 }
+//console.log(removerElemento(listaProdutos,'Mouse'))
+//console.log(listaProdutos)
 
-console.log(removerElemento(listaProdutos,'Teclado'))
-console.log(listaProdutos)
+
+//Funcao para trabalhar com objeto JSON produtos
+const listagemProdutos = function () {
+
+    let listProdutosJSON = {}
+
+    let listProdutos = [
+
+        { nome: 'Teclado', valor: 200, quantidade: 50 }, // indice 0
+        { nome: 'Monitor DEL', valor: 1000, quantidade: 10 },//indice 1
+        { nome: 'Mouse DEL', valor: 100, quantidade: 350 },//indice 2
+    ]
+
+    let listCores = ['Branco', 'Preto', 'Cinza']
+    let listTipoTeclado = ['Mecânico', 'Semi-Mecânico', 'Menbrana']
+    let listTipoMonitor = ['LCD', 'Full-HD', '4K', 'OLED']
+
+    //Adicina chaves (opeções) no teclado
+    listProdutos[0].cores = listCores
+    listProdutos[0].tipo = listTipoTeclado
+
+    //Adiciona chaves (opeções no monitor)
+    listProdutos[1].cores = listCores
+    listProdutos[1].tipo = listTipoMonitor
+
+    //Adiciona chaves (opeções) no Mouse
+    listProdutos[2].cores = listCores
+
+    /**
+     * Adicina uma chave produtos e coloca toda a estrutura dos produtos dentro dela'
+     */
+    listProdutosJSON.produtos = listProdutos
+
+    //criando o nome da chave produtos
+    //listaProdutosJSON.produtos = 'produto'
+
+    //listaProdutosJSON.produtos = listaProdutos
+    //listaProdutosJSON.clientes = listaNomes
+
+    //Nome da variavel, nome da chave e o indice para pegar o meu objeto
+    //console.log(listaProdutosJSON.produtos[1])
+
+    //console.log(listaProdutosJSON)
+
+    //console.log(listaProdutosJSON.clientes[2])
+
+    //console.log(listProdutosJSON)
+
+    //Localizando informação pelo indice
+    //console.log("Nome: "+listProdutosJSON.produtos[1].nome)
+    //console.log("Valor: "+listProdutosJSON.produtos[1].valor)
+    //console.log("Cor "+listProdutosJSON.produtos[1].cores[1])
+
+    /**********************************************************************************************
+     * Usando estrutura de repeição para verificar trazer todos os dados Json de forma organizada */
+
+    console.log('Percorrendo listProdutos e Array usando ForEach: ')
+
+    //Retorna todos os dados de produto (1 nivel do dados do JSON), dadosProduto da funcion me retorna o valor
+    listProdutosJSON.produtos.forEach(function (dadosProduto) {
+
+        console.log('Nome: ' + dadosProduto.nome)
+        console.log('Valor: ' + dadosProduto.valor)
+
+
+
+        //Validação para tratar quando não existe cores de produto
+        if (dadosProduto.cores != undefined) {
+            //Retorna as cores existentes de cada produto
+            dadosProduto.cores.forEach(function (dadosCores) {
+                console.log(' ** ' + dadosCores)
+            })
+        }
+
+        //Validação para tratar quando não existe tipos de produto
+        if (dadosProduto.tipo != undefined) {
+            //Retorna os tipos existentes para cada produto
+            dadosProduto.tipo.forEach(function (dadosTipo) {
+                console.log(' *** ' + dadosTipo)
+            })
+        }
+
+    })
+
+}
+
+listagemProdutos()
+
