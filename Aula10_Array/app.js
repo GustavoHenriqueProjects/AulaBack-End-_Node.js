@@ -87,7 +87,7 @@ const manipulandoElementos = function () {
 
     //Percorrendo Array com ForEach
     console.log('Percorrendo Array usando FOREACH: ')
-    //É um metoodo de um objeto Array que retorna uma função 
+    //ForEach é um metodo de um objeto Array que retorna uma função 
     //Todo o indice listaNomes é percorrido, e a informação é passada para a variavel nome.
     listaNomes.forEach(function (nome) {
         console.log(`Nome: ${nome}`)
@@ -134,13 +134,13 @@ const filtrandoElemetos = function () {
 }
 
 
-const removerElemento = function (array, nomeItem) {
+const removerElemento = function (array) {
     //Cria uma cópia da Array
     let novaLista = array.slice()
 
-    let nome = nomeItem
+    let nome = 'José'
 
-    //Remove o item selecionado da nova lista
+    //Busca o elemento dentro da Array
     let indice = novaLista.indexOf(nome)
     let status
 
@@ -248,6 +248,11 @@ const listagemProdutos = function () {
     })
 
 }
+
+//removerElemento(listaNomes,'José')
+//console.log(removerElemento(listaNomes,'José'))
+//console.log(listaNomes)
+
 
 listagemProdutos()
 
