@@ -22517,11 +22517,11 @@ const getListaDeEstados = function () {
       /**Adicionando cada estado a Array**/
       listaEstadosArray.push(listaEstados.sigla)
 
-      /**Acionando a chave e colocando toda a estrutura da Array dentro**/
-      listaEstadosJson.uf = listaEstadosArray
-
       quantidadeEstados++
    })
+
+   /**Acionando a chave e colocando toda a estrutura da Array dentro**/
+   listaEstadosJson.uf = listaEstadosArray
 
    listaEstadosJson.quantidade = quantidadeEstados
    return listaEstadosJson
@@ -22592,9 +22592,71 @@ const getCapitalEstado = function ($UF) {
 
 //console.log(getCapitalEstado('AC'))
 
-const getEstadosRegiao = function($regiao){
+const getEstadosRegiao = function ($regiao) {
 
    let regiao = $regiao
+   const regiaoJson = {}
+   const regiaoArray = []
+   let status = false
 
-   
+   estadosCidades.estados.forEach(function (regiaoSelecionada) {
+
+      if (regiao == regiaoSelecionada.regiao) {
+
+         //Cria um novo objeto a cada loop {} e instancia com novas informações
+         const regiaoEstadosJson = {}
+
+         regiaoEstadosJson.uf = regiaoSelecionada.sigla
+         regiaoEstadosJson.descricao = regiaoSelecionada.nome
+         regiaoArray.push(regiaoEstadosJson)
+         status = true
+
+      }
+   })
+
+   if (status) {
+      regiaoJson.regiao = regiao
+      regiaoJson.estados = regiaoArray
+      return regiaoJson
+
+   } else {
+      return status
+   }
 }
+
+//console.log(getEstadosRegiao())
+
+const getCapitalPais = function(){
+
+   const json = {}
+   const listaCapitalArray = []
+
+   estadosCidades.estados.forEach(function(capitais){
+      
+      const listaCapitalJson = {}
+
+      if(capitais.capital_pais != undefined){
+         
+        listaCapitalJson.capital_atual =  capitais.capital_pais.capital 
+        listaCapitalJson.uf = capitais.sigla
+        listaCapitalJson.descricao = capitais.nome
+        listaCapitalJson.capital = capitais.capital
+        listaCapitalJson.regiao = capitais.regiao
+        listaCapitalJson.capital_pais_ano_inicio = capitais.capital_pais.ano_inicio
+        listaCapitalJson.capital_pais_ano_termino = capitais.capital_pais.ano_fim
+        listaCapitalArray.push(listaCapitalJson)
+       
+      }
+
+   })
+
+ 
+   json.capitais = listaCapitalArray
+   
+   return json
+
+}
+
+//console.log(getCapitalPais())
+
+ 
