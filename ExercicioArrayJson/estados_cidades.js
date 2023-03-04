@@ -22598,7 +22598,6 @@ const getEstadosRegiao = function ($regiao) {
    const regiaoJson = {}
    const regiaoArray = []
    let status = false
-
    estadosCidades.estados.forEach(function (regiaoSelecionada) {
 
       if (regiao == regiaoSelecionada.regiao) {
@@ -22624,7 +22623,7 @@ const getEstadosRegiao = function ($regiao) {
    }
 }
 
-//console.log(getEstadosRegiao())
+//console.log(getEstadosRegiao('Sul'))
 
 const getCapitalPais = function(){
 
@@ -22633,6 +22632,7 @@ const getCapitalPais = function(){
 
    estadosCidades.estados.forEach(function(capitais){
       
+      //Não sobrepoe as informações poeque a cada loop crio uma nova instancia
       const listaCapitalJson = {}
 
       if(capitais.capital_pais != undefined){
@@ -22659,4 +22659,41 @@ const getCapitalPais = function(){
 
 //console.log(getCapitalPais())
 
- 
+ const getCidades = function($listaCidades){
+
+   let listaCidades = $listaCidades
+   const listaCidadesJson = {}
+   const arrayCidades = []
+   let quantidadeCidades = 0
+   let status = false
+
+   estadosCidades.estados.forEach(function(informacoesCidade){
+       
+      if(listaCidades == informacoesCidade.sigla){
+         listaCidadesJson.uf = informacoesCidade.sigla
+         listaCidadesJson.descricao = informacoesCidade.nome
+         status = true
+         
+         informacoesCidade.cidades.forEach(function(cidades){
+            //Cada cidade é direcionada para o Array
+            arrayCidades.push(cidades.nome)
+            quantidadeCidades++
+         })
+         
+      }
+   })
+
+   listaCidadesJson.quantidade_cidade = quantidadeCidades
+   listaCidadesJson.cidade = arrayCidades
+
+   if(status){
+   return listaCidadesJson
+   }else{
+      return status
+   }
+
+   
+
+ }
+
+//console.log(getCidades('AC'))
