@@ -1,5 +1,4 @@
-
-var estadosCidades = {
+const estadosCidades = {
    pais: 'Brasil',
    estados:
       [
@@ -22496,6 +22495,8 @@ var estadosCidades = {
          }
       ]
 };
+
+module.exports = estadosCidades
 
 
 /************************************************************************************************************************
