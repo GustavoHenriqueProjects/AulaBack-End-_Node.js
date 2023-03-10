@@ -22532,7 +22532,7 @@ const getListaDeEstados = function () {
 
 const getDadosEstado = function ($UF) {
 
-   let uf = $UF
+   let uf = $UF.toUpperCase()
    let status = false
 
    const dadosEstadosJson = {}  //Arquivo Json para manipulação
@@ -22560,11 +22560,11 @@ const getDadosEstado = function ($UF) {
    }
 }
 
-//console.log(getDadosEstado('SP'))
+//console.log(getDadosEstado('sp'))
 
 const getCapitalEstado = function ($UF) {
 
-   let uf = $UF
+   let uf = $UF.toUpperCase()
    let status = false
 
    const capitalEstadoJson = {}  //Arquivo Json para manipulação
@@ -22591,7 +22591,7 @@ const getCapitalEstado = function ($UF) {
    }
 }
 
-//console.log(getCapitalEstado('AC'))
+//console.log(getCapitalEstado('Ac'))
 
 const getEstadosRegiao = function ($regiao) {
 
@@ -22662,7 +22662,7 @@ const getCapitalPais = function(){
 
  const getCidades = function($listaCidades){
 
-   let listaCidades = $listaCidades
+   let listaCidades = $listaCidades.toUpperCase()
    const listaCidadesJson = {}
    const arrayCidades = []
    let quantidadeCidades = 0
