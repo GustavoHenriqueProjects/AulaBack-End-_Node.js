@@ -22496,7 +22496,7 @@ const estadosCidades = {
       ]
 };
 
-module.exports = estadosCidades
+//module.exports = estadosCidades
 
 
 /************************************************************************************************************************
@@ -22698,3 +22698,12 @@ const getCapitalPais = function(){
  }
 
 //console.log(getCidades('AC'))
+
+module.exports = {
+   getListaDeEstados,
+   getDadosEstado,
+   getCapitalEstado,
+   getEstadosRegiao,
+   getCapitalPais,
+   getCidades 
+}
