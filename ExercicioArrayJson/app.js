@@ -98,11 +98,11 @@ app.get('/estado/sigla/:uf', cors(), async function (request, response, next) {
 
         //Valida se ouve estado válido da função
         if (estado) {
-           statusCode = 200
-           dadosEstado = estado
+            statusCode = 200
+            dadosEstado = estado
         } else {
-         statusCode = 404
-         dadosEstado.message = "Erro 404"
+            statusCode = 404
+            dadosEstado.message = "Erro 404"
         }
     }
 
@@ -111,32 +111,96 @@ app.get('/estado/sigla/:uf', cors(), async function (request, response, next) {
 })
 
 //EndPoint: Mostra as informações referentes a capital de um estado do Brasil
-app.get('/estado/capital/:uf', cors(), async function(request, response, next){
-  //Recebe o valor da variavel uf, que sera encaminhado na URL da Requisição
-  let siglaEstado = request.params.uf
-  let statusCode
-  let dadosCapital = {}
+app.get('/estado/capital/:uf', cors(), async function (request, response, next) {
+    //Recebe o valor da variavel uf, que sera encaminhado na URL da Requisição
+    let siglaEstado = request.params.uf
+    let statusCode
+    let dadosCapital = {}
 
-  if(siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)){
-      statusCode = 400
-      dadosCapital.message = "Não é possivel processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caraceres (2 digitos)"
-  }else{
-      let capital = estadosCidades.getCapitalEstado(siglaEstado)
-      if(capital){
-          statusCode = 200
-          dadosCapital = capital
-      }else{
-          statusCode = 404
-          dadosCapital.message = "Erro 404"
-      }
-  }
+    if (siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)) {
+        statusCode = 400
+        dadosCapital.message = "Não é possivel processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caraceres (2 digitos)"
+    } else {
+        let capital = estadosCidades.getCapitalEstado(siglaEstado)
+        if (capital) {
+            statusCode = 200
+            dadosCapital = capital
+        } else {
+            statusCode = 404
+            dadosCapital.message = "Erro 404"
+        }
+    }
 
-  response.statusCode
-  response.dadosCapital
+    response.status(statusCode)
+    response.json(dadosCapital)
 
 })
 
-//Permite caarregar os Endpoints ciados e aguardar as requisições pelo
+//EndPoint: Retorna as informações referentes aos estados do Brasil, conforme a região
+app.get('/estados/regiao/:regiao', cors(), async function (request, response, next) {
+    //Recebe o valor da variavel uf, que sera encaminhado na URL da Requisição
+    let regiaoEstado = request.params.regiao
+    let statusCode
+    let dadosCapital = {}
+
+    if (regiaoEstado == '' || regiaoEstado == undefined || !isNaN(regiaoEstado)) {
+        statusCode = 400
+        dadosCapital.message = "Não é possivel processar a requisição, verifique novamente a regiao"
+    } else {
+        let regiao = estadosCidades.getEstadosRegiao(regiaoEstado)
+        if (regiao) {
+            statusCode = 200
+            dadosCapital = regiao
+            console.log(regiao)
+        } else {
+            statusCode = 404
+            dadosCapital.message = "Erro 404"
+            console.log(regiao)
+        }
+    }
+
+    response.status(statusCode)
+    response.json(dadosCapital)
+})
+
+//EndPoint: Retorna as informações das capitais do país
+app.get('/capitais/pais', cors() , async function (request, response, next) {
+
+    let statusCode
+    let dadosCapitaisDoPais = {}
+    let capitaisPais = estadosCidades.getCapitalPais()
+
+    statusCode = 200
+    dadosCapitaisDoPais = capitaisPais
+    response.status(statusCode)
+    response.json(dadosCapitaisDoPais)
+
+})
+
+//EndPoint: Retorna uma lista de cidades de acordo com a sigla do estado
+app.get('/cidades/:sigla', cors() , async function (request,response,next) {
+    let statusCode
+    let siglaEstado = request.params.sigla
+    let listaCidades = {}
+
+    if(siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 ||!isNaN(siglaEstado)){
+        statusCode = 400
+        listaCidades.message = "Não é possivel processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caraceres (2 digitos)"
+    }else{
+        let cidades = estadosCidades.getCidades(siglaEstado)
+        if(cidades){
+            statusCode = 200
+            listaCidades = cidades
+        }else{
+            statusCode = 404
+            listaCidades.message = "Erro 404"
+        }
+    }
+      response.status(statusCode)
+      response.json(listaCidades)
+})
+
+//Permite carregar os Endpoints ciados e aguardar as requisições pelo
 //protocolo HTTP na porta 8080
 app.listen(8080, function () {
     console.log('Servidor Aguardando requisições na porta 8080.')

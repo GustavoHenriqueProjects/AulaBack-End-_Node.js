@@ -22601,7 +22601,7 @@ const getEstadosRegiao = function ($regiao) {
    let status = false
    estadosCidades.estados.forEach(function (regiaoSelecionada) {
 
-      if (regiao == regiaoSelecionada.regiao) {
+      if (regiao.toUpperCase() == regiaoSelecionada.regiao.toUpperCase()) {
 
          //Cria um novo objeto a cada loop {} e instancia com novas informações
          const regiaoEstadosJson = {}
