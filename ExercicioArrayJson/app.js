@@ -59,7 +59,7 @@ app.use((request, response, next) => {
 })
 
 //EndPoints para Listar os estados
-app.get('/estados', cors(), async function (request, response, next) {
+app.get('/v1/senai/estados', cors(), async function (request, response, next) {
 
     //Chama a função que retorna os estados
     let listaDeEstados = estadosCidades.getListaDeEstados()
@@ -76,7 +76,7 @@ app.get('/estados', cors(), async function (request, response, next) {
 })
 
 //EndPoint: Lista as caracteristicas do estado pela sigla.
-app.get('/estado/sigla/:uf', cors(), async function (request, response, next) {
+app.get('/v1/senai/estado/sigla/:uf', cors(), async function (request, response, next) {
     /*Para criar uma variavel dentro da URL: '/estado:uf'
     uf- É uma variavel que será utilizada para passagem de valores, na URL da requisição*/
 
@@ -111,7 +111,7 @@ app.get('/estado/sigla/:uf', cors(), async function (request, response, next) {
 })
 
 //EndPoint: Mostra as informações referentes a capital de um estado do Brasil
-app.get('/estado/capital/:uf', cors(), async function (request, response, next) {
+app.get('/v1/senai/estado/capital/:uf', cors(), async function (request, response, next) {
     //Recebe o valor da variavel uf, que sera encaminhado na URL da Requisição
     let siglaEstado = request.params.uf
     let statusCode
@@ -137,7 +137,7 @@ app.get('/estado/capital/:uf', cors(), async function (request, response, next) 
 })
 
 //EndPoint: Retorna as informações referentes aos estados do Brasil, conforme a região
-app.get('/estados/regiao/:regiao', cors(), async function (request, response, next) {
+app.get('/v1/senai/estados/regiao/:regiao', cors(), async function (request, response, next) {
     //Recebe o valor da variavel uf, que sera encaminhado na URL da Requisição
     let regiaoEstado = request.params.regiao
     let statusCode
@@ -164,7 +164,7 @@ app.get('/estados/regiao/:regiao', cors(), async function (request, response, ne
 })
 
 //EndPoint: Retorna as informações das capitais do país
-app.get('/capitais/pais', cors() , async function (request, response, next) {
+app.get('/v1/senai/capitais/pais', cors(), async function (request, response, next) {
 
     let statusCode
     let dadosCapitaisDoPais = {}
@@ -178,7 +178,7 @@ app.get('/capitais/pais', cors() , async function (request, response, next) {
 })
 
 //EndPoint: Retorna uma lista de cidades de acordo com a sigla do estado
-app.get('/cidades/:sigla', cors() , async function (request,response,next) {
+app.get('/v1/senai/cidades/:sigla', cors() , async function (request,response,next) {
     let statusCode
     let siglaEstado = request.params.sigla
     let listaCidades = {}
@@ -199,6 +199,74 @@ app.get('/cidades/:sigla', cors() , async function (request,response,next) {
       response.status(statusCode)
       response.json(listaCidades)
 })
+
+/**
+ * Exemplo com Professor:
+ * EndPoint: Lista as cidades filtrada pela sigla do estado
+ */
+app.get('/v1/senai/cidades', cors(), async function (request, response, next) {
+    /**************************************************************
+     * Recebe o valor da variavel que será enviada por queryString,
+     * Tudo apos (?) é variavel: uf = sp (uf recebe sp)
+     * Ex: www.vol.com.br?uf=sp&cep=08556100&nome=jose
+     * 
+     * Usamos a query para receber diversas variaveis para realizar 
+     * filtros.
+     * Usamos o params para receber o ID da url
+    **************************************************************/
+    let siglaEstado = request.query.uf
+    let statusCode
+    let listaCidades = {}
+
+    if (siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)) {
+        statusCode = 400
+        listaCidades.message = "Não é possivel processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caraceres (2 digitos)"
+    } else {
+        let cidades = estadosCidades.getCidades(siglaEstado)
+        if (cidades) {
+            statusCode = 200
+            listaCidades = cidades
+        } else {
+            statusCode = 404
+            listaCidades.message = "Erro 404"
+        }
+    }
+    response.status(statusCode)
+    response.json(listaCidades)
+})
+
+//EndPoint versão 2: Lista de Cidades filtrada pela sigla do estado
+app.get('/v2/senai/cidades', cors(), async function (request, response, next) {
+    /**************************************************************
+     * Recebe o valor da variavel que será enviada por queryString,
+     * Tudo apos (?) é variavel: uf = sp (uf recebe sp)
+     * Ex: www.vol.com.br?uf=sp&cep=08556100&nome=jose
+     * 
+     * Usamos a query para receber diversas variaveis para realizar 
+     * filtros.
+     * Usamos o params para receber o ID da url
+    **************************************************************/
+    let siglaEstado = request.query.uf
+    let statusCode
+    let listaCidades = {}
+
+    if (siglaEstado == '' || siglaEstado == undefined || siglaEstado.length != 2 || !isNaN(siglaEstado)) {
+        statusCode = 400
+        listaCidades.message = "Não é possivel processar a requisição pois a sigla do estado não foi informada ou não atende a quantidade de caraceres (2 digitos)"
+    } else {
+        let cidades = estadosCidades.getCidades(siglaEstado)
+        if (cidades) {
+            statusCode = 200
+            listaCidades = cidades
+        } else {
+            statusCode = 404
+            listaCidades.message = "Erro 404"
+        }
+    }
+    response.status(statusCode)
+    response.json(listaCidades)
+})
+
 
 //Permite carregar os Endpoints ciados e aguardar as requisições pelo
 //protocolo HTTP na porta 8080
