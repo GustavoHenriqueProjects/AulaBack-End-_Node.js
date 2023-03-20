@@ -25,7 +25,7 @@
  * const express = require('express') : Responsavel pelas requisições
  * const cors = require('cors') : Responsavel pelas permições das requisições
  * const bodyParser = require('body-parser') : Responsavel pela manipulação
- *  do body da requisição
+ * do body da requisição
  **************************************************************************/
 const express = require('express')
 const cors = require('cors')
@@ -76,13 +76,13 @@ app.get('/v1/senai/estados', cors(), async function (request, response, next) {
 })
 
 //EndPoint: Lista as caracteristicas do estado pela sigla.
-app.get('/v1/senai/estado/sigla/:uf', cors(), async function (request, response, next) {
+app.get('/v1/senai/estado/sigla', cors(), async function (request, response, next) {
     /*Para criar uma variavel dentro da URL: '/estado:uf'
     uf- É uma variavel que será utilizada para passagem de valores, na URL da requisição*/
 
     //Recebe o valor da variavel uf, que sera encaminhado na URL da Requisição
-    let siglaEstado = request.params.uf
-
+    //let siglaEstado = request.params.uf
+      let siglaEstado = request.query.uf
     let statusCode
     let dadosEstado = {}
 

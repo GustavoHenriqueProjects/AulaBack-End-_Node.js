@@ -22506,7 +22506,7 @@ const estadosCidades = {
  * Versão: 1.0
  * 
  ************************************************************************************************************************/
-
+console.log(estadosCidades)
 const getListaDeEstados = function () {
 
    const listaEstadosJson = {}  //Arquivo Json para manipulação
