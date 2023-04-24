@@ -50,7 +50,17 @@ app.use((request, response, next) => {
 
 //EndPoint: Retorna todos os dados de alunos
 app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
+    let controlerAluno = require('./controller/controller_aluno.js')
+    //Solicita ao controller que retorna todos os alunos do banco de dados
+    let dados = await controlerAluno.selecionarTodosAlunos()
 
+    if(dados){
+        response.json(dados)
+        response.status(200)
+    }else{
+        response.json()
+        response.status(404)
+    }
 })
 
 //CRUD (Create, Read, Update e Delete)
@@ -62,7 +72,8 @@ app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
  *  Chave primaria ID é passada por parametro questão de segurnça. Query nâo é
  *  recomentado
  **********************************************************************************/
-app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
+app.get('/v1/lion-school/aluno/1', cors(), async function(request, response) {
+
 
 })
 
@@ -79,4 +90,8 @@ app.put('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
 //EndPoint: Exclui o aluno pelo ID
 app.delete('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
 
+})
+
+app.listen(8080, function(){
+    console.log("Servidor aguardando requisições na porta 8080")
 })
