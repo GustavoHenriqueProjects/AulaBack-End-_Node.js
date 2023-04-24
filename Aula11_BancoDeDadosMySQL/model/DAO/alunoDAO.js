@@ -17,12 +17,6 @@ const updateAluno = function(dadosAluno) {
 
 }
 
-//Função para inserir um novo registro no Banco de Dados
-const insertAluno = function(dadosAluno) {
-
-
-}
-
 //Função para excluir um registro no Banco de Dados
 const deleteAluno = function(dadosAluno) {
 
