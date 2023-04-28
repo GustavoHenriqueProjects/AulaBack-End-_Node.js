@@ -30,6 +30,11 @@ const cors = require('cors')
 const bodyParse = require('body-parser')
 const { request, response } = require('express')
 
+//Criando uma const para realizar o processo de padronização de dados que vão chegar no body da requisição
+const bodyJson = bodyParse.json()
+
+const controllerAluno = require('./controller/controller_aluno.js')
+
 //Cria o objeto app utilizando a classe do express
 const app = express()
 
@@ -50,9 +55,9 @@ app.use((request, response, next) => {
 
 //EndPoint: Retorna todos os dados de alunos
 app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
-    let controlerAluno = require('./controller/controller_aluno.js')
+    
     //Solicita ao controller que retorna todos os alunos do banco de dados
-    let dados = await controlerAluno.selecionarTodosAlunos()
+    let dados = await controllerAluno.selecionarTodosAlunos()
 
     if(dados){
         response.json(dados)
@@ -78,7 +83,18 @@ app.get('/v1/lion-school/aluno/1', cors(), async function(request, response) {
 })
 
 //EndPoint: Inseri um novo aluno.
-app.post('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
+app.post('/v1/lion-school/aluno', cors(),bodyJson, async function(request, response) {
+    //Recebe os dados encaminhados no body da requisição
+    let dadosBody = request.body
+    console.log(dadosBody)
+
+    //Envia os dados para a controller
+    let resultInsetDados = await controllerAluno.inserirAluno(dadosBody)
+    console.log(resultInsetDados)
+
+    //Retorna o status code e a message
+    response.status(resultInsetDados.status)
+    response.json(resultInsetDados)
 
 })
 
