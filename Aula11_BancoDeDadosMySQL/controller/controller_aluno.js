@@ -7,13 +7,13 @@
 //Import do arquivo de acesso ao banco de dados
 const alunoDAO = require('../model/dao/alunoDAO.js')
 
+//Import do arquivo global de configurações do projeto
+const message = require('./modulo/config.js')
+
 //Função para receber os dados do APP e enviar para a Model para inserir um novo item
 //Essa função recebe um Json dos dados do aluno
 const inserirAluno = async function(dadosAluno){
 
-    //Import do arquivo global de configurações do projeto
-    let message = require('./modulo/config.js')
-    
     if(
         dadosAluno.nome            == '' || dadosAluno.nome            == undefined || dadosAluno.nome.length     > 100 ||
         dadosAluno.cpf             == '' || dadosAluno.cpf             == undefined || dadosAluno.cpf             > 18  ||
@@ -34,13 +34,50 @@ const inserirAluno = async function(dadosAluno){
 }
 
 //Função para recever os dados do APP e enviar para a Model para atualizar um item existente
-const atualizarAluno = function(dadosAluno){
+const atualizarAluno = async function(dadosAluno, idAluno){
+
+    if(
+        dadosAluno.nome            == '' || dadosAluno.nome            == undefined || dadosAluno.nome.length     > 100 ||
+        dadosAluno.cpf             == '' || dadosAluno.cpf             == undefined || dadosAluno.cpf             > 18  ||
+        dadosAluno.rg              == '' || dadosAluno.rg              == undefined || dadosAluno.rg              > 15  ||
+        dadosAluno.data_nascimento == '' || dadosAluno.data_nascimento == undefined || dadosAluno.data_nascimento > 10  ||
+        dadosAluno.email           == '' || dadosAluno.email           == undefined
+    ){
+       return message.ERRO_REQUIRED_DATA
+       //Validação para o ID
+    }else if(idAluno == '' || idAluno== undefined || isNaN(idAluno) ){
+        return message.ERRO_REQUIRED_ID
+    }else{
+        //Adiciona o ID no json com todos os dados
+        dadosAluno.id = idAluno
+
+        //Encaminha para DAO os dados para serem alterados no banco
+        let status = await alunoDAO.updateAluno(dadosAluno)
+
+        if(status){
+            return message.UPDATED_ITEM
+        }else{
+            return message.ERRO_INTERNAL_SERVER
+        }
+    }
 
 }
 
 //Função para excluir um ano excluido pelo id, sera encaminhado pela model
-const deletarAluno = function(id){
+const deletarAluno = async function(idAluno){
 
+    if(idAluno == '' || idAluno == undefined || isNaN(idAluno) ){
+        return message.ERRO_REQUIRED_ID
+    }else{
+
+        let status = await alunoDAO.deleteAluno(idAluno) 
+
+        if(status){
+            return message.UPDATED_ITEM
+        }else{
+            return message.ERRO_INTERNAL_SERVER
+        }
+    }
 }
 
 //Função para retornar todos os items da tabela recebidos da mode
