@@ -67,7 +67,6 @@ const atualizarAluno = async function(dadosAluno, idAluno){
             return message.ERRO_INTERNAL_SERVER
         }
     }
-
 }
 
 //Função para excluir um ano excluido pelo id, sera encaminhado pela model

@@ -83,7 +83,6 @@ app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
 
 })
 
-
 //EndPoint: Inseri um novo aluno.
 app.post('/v1/lion-school/aluno', cors(),bodyJson, async function(request, response) {
     
@@ -135,6 +134,8 @@ app.delete('/v1/lion-school/aluno/:id', cors(), async function(request, response
     response.json(status.message)
 
 })
+
+//endPoint usando queryString para retorna o aluno pelo nome
 
 app.listen(8080, function(){
     console.log("Servidor aguardando requisições na porta 8080")
