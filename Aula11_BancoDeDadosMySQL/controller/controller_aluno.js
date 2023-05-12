@@ -91,17 +91,39 @@ const selecionarTodosAlunos = async function(){
 
     //Valida se o banco de dados teve registro
     if(dadosAluno){
+        dadosJson.status = 200
+        dadosJson.count = dadosAluno.length
         //Adiciona o array do banco de dados no dadosJson
         dadosJson.alunos = dadosAluno
         return dadosJson
     }else{
-        return false
+        return message.ERROR_NOT_FOUND
     }
 }
 
 //Função para buscar um item iltrando pelo id, sera encaminhado  pela model
-const buscarIdAluno = function(id){
+const buscarIdAluno = async function(id){
 
+    //Validação para ID
+    if(id == '' || id == undefined || isNaN(id)){
+        return message.ERRO_REQUIRED_ID
+    }else{
+         //Solicita ao DAO todos os alunos do banco de dados
+      let dadosAluno = await alunoDAO.selectByIdAluno(id)
+    
+      //Cria um objeto do tipo Json
+      let dadosJson = {}
+  
+      //Valida se o banco de dados teve registro
+      if(dadosAluno){
+          dadosJson.status = 200
+          //Adiciona o array do banco de dados no dadosJson
+          dadosJson.alunos = dadosAluno
+          return dadosJson
+      }else{
+          return message.ERROR_NOT_FOUND
+      }
+    }
 }
 
 module.exports = {

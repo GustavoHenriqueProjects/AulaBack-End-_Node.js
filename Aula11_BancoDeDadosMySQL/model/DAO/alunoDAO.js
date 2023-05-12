@@ -61,8 +61,7 @@ const updateAluno = async function(dadosAluno) {
 //Função para excluir um registro no Banco de Dados
 const deleteAluno = async function(idAluno) {
 
-    let sql = `drop tbl_aluno
-                    where id = ${idAluno}`
+    let sql = `delete from tbl_aluno where id=${idAluno}`
 
     let result = await prisma.$executeRawUnsafe(sql)
 
@@ -96,8 +95,22 @@ const selectAllAluno = async function() {
 }
 
 //Função para retorna o registro do aluno filtrado pelo ID no Banco de Dados.
-const selectByIdAluno = function(id) {
+const selectByIdAluno = async function(id) {
+     //Variavel com script sql para executar no banco de dados 
+    //Ela seleciona todas as informações da tabela
+    let sql = `select * from tbl_aluno where id = ${id}`
 
+    //Executa o script sql no banco de dados
+    //$queryRawUnSafe() é utilizado quando o scriptSQL esta em uma variavel
+    //$queryRaw() é utilizado quando passar o script direto no método(Ex: $queryRaw('select * from tbl_))
+    let rsAluno = await prisma.$queryRawUnsafe(sql)
+
+    //Verifica se o banco de dados encontro algum registro
+    if(rsAluno.length > 0){
+        return rsAluno
+    }else{
+        return false
+    }
 
 }
 

@@ -59,37 +59,37 @@ app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
     
     //Solicita ao controller que retorna todos os alunos do banco de dados
     let dados = await controllerAluno.selecionarTodosAlunos()
-    console.log(dados)
 
-    if(dados){
-        response.json(dados)
-        response.status(200)
-    }else{
-        response.json()
-        response.status(404)
-    }
+    response.status(dados.status)
+    response.json(dados)
 })
 
 //CRUD (Create, Read, Update e Delete)
 
 /*********************************************************************************
- * EndPoints: Responsavel pelos Alunos
  * 
  *  EndPoint: Retorna dados do aluno pelo ID
  *  Chave primaria ID é passada por parametro questão de segurnça. Query nâo é
  *  recomentado
  **********************************************************************************/
-app.get('/v1/lion-school/aluno/1', cors(), async function(request, response) {
+app.get('/v1/lion-school/aluno/', cors(), async function(request, response) {
+    let idAluno = request.params.id
+
+    let dados = await controllerAluno.buscarIdAluno(idAluno)
+
+    response.status(dados.status)
+    response.json(dados)
 
 
 })
+
 
 //EndPoint: Inseri um novo aluno.
 app.post('/v1/lion-school/aluno', cors(),bodyJson, async function(request, response) {
     
     let contentType = request.headers['content-type']
 
-    if(String.toLowerCase(contentType) == 'application/json'){
+    if(String(contentType).toLocaleLowerCase() == 'application/json'){
     //Recebe os dados encaminhados no body da requisição
     let dadosBody = request.body
 
