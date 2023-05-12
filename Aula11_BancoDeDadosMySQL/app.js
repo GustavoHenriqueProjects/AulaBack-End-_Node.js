@@ -34,7 +34,7 @@ const { request, response } = require('express')
 const bodyJson = bodyParse.json()
 
 const controllerAluno = require('./controller/controller_aluno.js')
-const message = require('./controller/controller_aluno.js')
+const message = require('./controller/modulo/config.js')
 
 //Cria o objeto app utilizando a classe do express
 const app = express()
@@ -56,7 +56,6 @@ app.use((request, response, next) => {
 
 //EndPoint: Retorna todos os dados de alunos
 app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
-    
     //Solicita ao controller que retorna todos os alunos do banco de dados
     let dados = await controllerAluno.selecionarTodosAlunos()
 
@@ -66,6 +65,18 @@ app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
 
 //CRUD (Create, Read, Update e Delete)
 
+//endPoint usando queryString para retorna o aluno pelo nome
+//Caminho: http://localhost:8080/v1/lion-school/nome?nome=fernanda
+app.get('/v1/lion-school/aluno/nome', cors(), async function(request, response, next){
+    let nome = request.query.nome
+
+    let dados = await controllerAluno.buscarAlunoPorNome(nome)
+
+    response.status(dados.status)
+    response.json(dados)
+
+})
+
 /*********************************************************************************
  * 
  *  EndPoint: Retorna dados do aluno pelo ID
@@ -73,6 +84,7 @@ app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
  *  recomentado
  **********************************************************************************/
 app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
+
     let idAluno = request.params.id
 
     let dados = await controllerAluno.buscarIdAluno(idAluno)
@@ -100,11 +112,11 @@ app.post('/v1/lion-school/aluno', cors(),bodyJson, async function(request, respo
     response.json(resultInsetDados)
     }else{
 
-    response.status(message.status)
-    response.json(message.message)
+    return message.ERROR_INVALID_CONTENT_TYPE
+    //response.status(message.status)
+    //response.json(message.message)
 
     }
-    
 
 })
 
@@ -134,8 +146,6 @@ app.delete('/v1/lion-school/aluno/:id', cors(), async function(request, response
     response.json(status.message)
 
 })
-
-//endPoint usando queryString para retorna o aluno pelo nome
 
 app.listen(8080, function(){
     console.log("Servidor aguardando requisições na porta 8080")

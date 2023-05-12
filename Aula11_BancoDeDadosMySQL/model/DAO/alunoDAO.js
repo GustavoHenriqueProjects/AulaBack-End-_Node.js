@@ -12,6 +12,9 @@ const prisma = new PrismaClient()
 //Função para inserir um novo registro no Banco de Dados
 const insertAluno = async function(dadosAluno) {
 
+    //$queryRawUnSafe() é utilizado quando o scriptSQL esta em uma variavel
+    //$queryRaw() é utilizado quando passar o script direto no método(Ex: $queryRaw('select * from tbl_))
+
     //Script SQL para inserir um novo dado no banco de dados
     let sql = `insert into tbl_aluno (
                                         nome,
@@ -120,9 +123,25 @@ const selectLastId = async function(){
     let sql = 'select id from tbl_aluno order by id desc limit 1'
 
     let rsAluno = await prisma.$executeRawUnsafe(sql)
-
+    
     if(rsAluno.length > 0){
         return rsAluno[0].id
+    }else{
+        return false
+    }
+}
+
+const getAlunoPorNome = async function(nome){
+     //$queryRawUnSafe() é utilizado quando o scriptSQL esta em uma variavel
+    //$queryRaw() é utilizado quando passar o script direto no método(Ex: $queryRaw('select * from tbl_))
+
+    //LIKE é usado para fazer comparação de Strings
+    let sql = `select * from tbl_aluno where nome like '%${nome}%'`
+    let rsAluno = await prisma.$queryRawUnsafe(sql)
+
+    //Verifica se array contem pelo menos uma linha
+    if(rsAluno.length > 0){
+        return rsAluno
     }else{
         return false
     }
@@ -135,5 +154,6 @@ module.exports = {
     deleteAluno,
     selectByIdAluno,
     updateAluno,
-    selectLastId
+    selectLastId,
+    getAlunoPorNome
 }
