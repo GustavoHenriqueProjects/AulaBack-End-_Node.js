@@ -26,7 +26,14 @@ const inserirAluno = async function(dadosAluno){
         //Envia os dados para a modem a serem inseridos no banco de dados
         let status = await alunoDAO.insertAluno(dadosAluno)
         if(status){
-          return message.CREATED_ITEM  
+          let dadosJSON = {}
+          let alunoNovoId = await alunoDAO.selectLastId()
+          dadosAluno.id = alunoNovoId
+
+          dadosJSON.status = message.CREATED_ITEM.status
+          dadosJSON.aluno = dadosAluno
+
+          return dadosJSON  
         }else{
             return message.ERRO_INTERNAL_SERVER
         }

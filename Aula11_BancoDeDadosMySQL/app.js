@@ -72,7 +72,7 @@ app.get('/v1/lion-school/aluno', cors(), async function(request, response) {
  *  Chave primaria ID é passada por parametro questão de segurnça. Query nâo é
  *  recomentado
  **********************************************************************************/
-app.get('/v1/lion-school/aluno/', cors(), async function(request, response) {
+app.get('/v1/lion-school/aluno/:id', cors(), async function(request, response) {
     let idAluno = request.params.id
 
     let dados = await controllerAluno.buscarIdAluno(idAluno)
